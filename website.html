@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Kevin Zhu's Projects Portfolio">
   <title>My Projects Portfolio</title>
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
   <style>
     /* 1. Reset and Base Styles */
     * {
@@ -36,45 +37,71 @@
 
     /* 2. Layout Components */
     header {
-      background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
-      color: #fff;
-      padding: 2rem 0;
-      text-align: center;
+      background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+      padding: 2.5rem 2rem;
       position: relative;
-      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
     }
 
     header h1 {
       font-size: 2.5rem;
-      margin-bottom: 0.5rem;
-      font-weight: 700;
+      font-weight: 800;
+      margin: 0;
+      background: linear-gradient(to right, #ffffff, rgba(255, 255, 255, 0.9));
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     }
 
-    /* Dark mode toggle button */
+    /* Refined header and dark mode toggle */
     .theme-toggle {
-      position: absolute;
-      right: 2rem;
-      top: 50%;
-      transform: translateY(-50%);
       background: transparent;
-      border: 2px solid rgba(255, 255, 255, 0.5);
+      border: 1px solid rgba(255, 255, 255, 0.3);
       color: white;
-      padding: 0.5rem;
+      padding: 0.75rem;
       border-radius: 50%;
       cursor: pointer;
       transition: var(--transition);
+      font-size: 1.2rem;
+      width: 45px;
+      height: 45px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      outline: none; /* Remove focus outline */
     }
 
     .theme-toggle:hover {
       background: rgba(255, 255, 255, 0.1);
-      transform: translateY(-50%) scale(1.1);
+      border-color: rgba(255, 255, 255, 0.5);
+      transform: scale(1.1);
+    }
+
+    .theme-toggle i {
+      font-size: 1.2rem;
+      color: rgba(255, 255, 255, 0.9);
+    }
+
+    /* Dark mode specific toggle styles */
+    .dark-mode .theme-toggle {
+      border-color: rgba(255, 255, 255, 0.2);
+    }
+
+    .dark-mode .theme-toggle:hover {
+      background: rgba(255, 255, 255, 0.05);
+      border-color: rgba(255, 255, 255, 0.4);
     }
 
     /* 3. Navigation Styles */
     nav {
-      background: var(--card-light);
-      padding: 1rem 0;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      position: sticky;
+      top: 0;
+      z-index: 100;
     }
 
     nav ul {
@@ -85,17 +112,24 @@
     }
 
     nav ul li a {
-      color: var(--text-light);
-      text-decoration: none;
-      font-weight: 500;
-      padding: 0.5rem 1rem;
-      border-radius: 0.5rem;
-      transition: var(--transition);
+      position: relative;
+      font-weight: 600;
     }
 
-    nav ul li a:hover {
+    nav ul li a::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 50%;
+      width: 0;
+      height: 2px;
       background: var(--primary-color);
-      color: white;
+      transition: all 0.3s ease;
+      transform: translateX(-50%);
+    }
+
+    nav ul li a:hover::after {
+      width: 100%;
     }
 
     /* 4. Project Grid and Cards */
@@ -113,7 +147,10 @@
     }
 
     .project {
-      background: var(--card-light);
+      position: relative;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(0, 0, 0, 0.1);
       border-radius: 1rem;
       overflow: hidden;
       box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
@@ -127,12 +164,17 @@
 
     .project img {
       width: 100%;
-      height: 200px;
+      height: 250px;
       object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+
+    .project:hover img {
+      transform: scale(1.05);
     }
 
     .project-content {
-      padding: 1.5rem;
+      padding: 2rem;
     }
 
     .project h3 {
@@ -149,12 +191,17 @@
     }
 
     .tag {
+      background: rgba(37, 99, 235, 0.1);
+      color: var(--primary-color);
+      font-weight: 600;
+      padding: 0.4rem 1rem;
+      border-radius: 2rem;
+      transition: var(--transition);
+    }
+
+    .tag:hover {
       background: var(--primary-color);
       color: white;
-      padding: 0.3rem 0.8rem;
-      border-radius: 2rem;
-      font-size: 0.8rem;
-      font-weight: 500;
     }
 
     .project-links {
@@ -164,26 +211,29 @@
     }
 
     .project-links a {
-      padding: 0.5rem 1rem;
-      border-radius: 0.5rem;
-      text-decoration: none;
-      font-weight: 500;
-      transition: var(--transition);
+      padding: 0.75rem 1.5rem;
+      border-radius: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      transition: all 0.3s ease;
     }
 
     .view-details {
-      background: var(--primary-color);
+      background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
       color: white;
+      border: none;
     }
 
     .view-code {
-      border: 1px solid var(--primary-color);
+      background: transparent;
+      border: 2px solid var(--primary-color);
       color: var(--primary-color);
     }
 
-    .project-links a:hover {
-      opacity: 0.9;
-      transform: scale(1.05);
+    .view-details:hover,
+    .view-code:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
     }
 
     /* 5. About & Contact Sections */
@@ -192,21 +242,18 @@
     }
 
     section h2 {
-      font-size: 2rem;
-      margin-bottom: 2rem;
-      position: relative;
-      display: inline-block;
+      font-size: 2.25rem;
+      font-weight: 800;
+      margin-bottom: 3rem;
+      background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
     }
 
     section h2::after {
-      content: '';
-      position: absolute;
-      bottom: -0.5rem;
-      left: 0;
-      width: 100%;
-      height: 3px;
-      background: var(--primary-color);
-      border-radius: 3px;
+      height: 4px;
+      border-radius: 2px;
+      background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
     }
 
     /* 6. Social Links */
@@ -218,25 +265,28 @@
     }
 
     .social-links a {
-      color: var(--text-light);
-      font-size: 1.8rem;
-      transition: var(--transition);
+      padding: 0.75rem;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
     }
 
     .social-links a:hover {
-      color: var(--primary-color);
-      transform: translateY(-3px);
+      background: rgba(255, 255, 255, 0.2);
+      transform: translateY(-5px);
     }
 
     /* 7. Dark Mode Styles */
     .dark-mode {
       background: var(--background-dark);
-      color: var(--text-dark);
     }
 
     .dark-mode nav,
     .dark-mode .project {
-      background: var(--card-dark);
+      background: rgba(30, 41, 59, 0.95);
     }
 
     .dark-mode nav ul li a {
@@ -247,17 +297,34 @@
       color: var(--text-dark);
     }
 
-    .dark-mode .social-links a {
-      color: var(--text-dark);
+    .dark-mode .tag {
+      background: rgba(255, 255, 255, 0.1);
+      color: #fff;
+    }
+
+    .dark-mode .tag:hover {
+      background: rgba(255, 255, 255, 0.2);
     }
 
     /* 8. Footer */
     footer {
-      background: var(--primary-color);
+      background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
       color: white;
       text-align: center;
-      padding: 2rem;
+      padding: 3rem 2rem;
       margin-top: 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    footer::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.3), transparent);
     }
 
     /* 9. Responsive Design */
@@ -285,8 +352,8 @@
 <body>
   <header>
     <h1>My Projects Portfolio</h1>
-    <button onclick="toggleDarkMode()" aria-label="Toggle dark mode">
-        <i class="fas fa-moon"></i>
+    <button class="theme-toggle" onclick="toggleDarkMode()" aria-label="Toggle dark mode">
+      <i class="fas fa-moon"></i>
     </button>
   </header>
   
@@ -339,11 +406,10 @@
     
     <section id="contact">
         <h2>Contact</h2>
-        <p>Feel free to reach out to me at: <a href="mailto:your.email@example.com">your.email@example.com</a></p>
+        <p>Feel free to reach out to me at: <a href="mailto:your.kevinzhu2234@gmail.com">kevinzhu2234@gmail.com</a></p>
         <div class="social-links">
-          <a href="https://github.com/yourusername" target="_blank"><i class="fab fa-github"></i></a>
-          <a href="https://linkedin.com/in/yourusername" target="_blank"><i class="fab fa-linkedin"></i></a>
-          <a href="https://twitter.com/yourusername" target="_blank"><i class="fab fa-twitter"></i></a>
+          <a href="https://github.com/KevinZhu223" target="_blank"><i class="fab fa-github"></i></a>
+          <a href="https://www.linkedin.com/in/kevinzhu223/" target="_blank"><i class="fab fa-linkedin"></i></a>
         </div>
       </section>
     </div>
